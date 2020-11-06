@@ -122,14 +122,17 @@ function makeContactList() {
           
          
          printAllContactNames: function(){
+        
+                var collectedFullNames = [];
              
-             var collectedFullNames = [];
-             
-             for (var i = 0; i < contacts.length; i++){
-                 collectedFullNames.push(contacts[i].firstName + " " + contacts[i].lastName);
+                for (var i = 0; i < contacts.length; i++){
+                 collectedFullNames.push(contacts[i].nameFirst + " " + contacts[i].nameLast);
+                 
+                
              }
-             return collectedFullNames
+             return collectedFullNames.join("\n")
              
+           
            
          
     }
