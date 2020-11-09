@@ -35,6 +35,7 @@
 
 function greeter(hour) {
     // YOUR CODE BELOW HERE //
+    //use an if-else if chain to exectute a control flow so that the times correlate to the hour given for our greeter function. 
     if (hour <= 11){
         console.log("Good Morning!");
     } else if (hour > 11 && hour <= 16){

@@ -1,25 +1,28 @@
 body {
-    background: rgb(125, 198, 205);
-    color: rgb(45, 45, 45);
-    padding: 10px;
-    font-family: arial;
-}
+        background: rgb(255, 255, 240);
+        color: rgb(45, 45, 45);
+        padding: 10px;
+        font-family: arial;
+    }
 header {
     font-size: 1.5em;
     font-weight: bold;
 }
-[id=all-contents] {
-    max-width: 800px;
-    margin: auto;
-}
+    [id=all-contents] {
+        max-width: 800px;
+        margin: auto;
+    }
 
-/* navigation menu */
-nav {
-    background: rgb(239, 80, 41);
-    margin: 0 auto;
-    display: flex;
-    padding: 10px;
-}
+    /* navigation menu */
+    nav {
+        background: rgb(230, 145, 220);
+        margin: 0 auto;
+        margin-bottom: 20px;
+        display: flex;
+        padding: 10px;
+        border-radius: 30px;
+    }
+    
 nav header {
     display: flex;
     align-items: center;

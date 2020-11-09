@@ -101,6 +101,7 @@ function createEndsWithFilter(endsWith) {
     //here we can copy and paste our code from above and just change the index of 
     //given string to reflect we are accessing the last index of the string
     
+    
         return function(givenString){
         if (givenString[givenString.length -1] === endsWith.toUpperCase()){
             return true;
@@ -187,6 +188,9 @@ function allStringsPass(strings, test) {
      
      //now trueOrFalse contains all true or false values now we must check if all the statements
      //are true so that we can return the boolean true for the function.
+     
+     //I utilized the .every() property built into the array to return the variable trueOrFalse only
+     //if all are strictly equal to true.
      
       
       return trueOrFalse.every(v => v === true);

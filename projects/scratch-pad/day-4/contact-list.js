@@ -118,6 +118,10 @@ function makeContactList() {
          *new line = .join("\n")
          * 
          * first I think I want to make a new array literal that takes the keys of nameFirst and nameLast
+         * this is var = collectedFullNames; next I create a for loop that iterates through the array and pushes
+         * the values of nameFirst and nameLaste concatenates with a space. 
+         * 
+         * I return the value of collectedFullNames with the join property joining the values with a new line 
          */
           
          
