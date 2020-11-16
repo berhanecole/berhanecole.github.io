@@ -120,3 +120,17 @@
  // prints => 
  //[ 'cognac', 'whiskey', 'bourbon', 'vodka', 'gin', 'tequila', 'rum' ]
  
+ /** 6. Searching within a string: .search() method.
+ * We can use the .search() method to look at an array and see if an 
+ * element or sequence of elements are present. * Something to note about
+ * the search method is that it returns position of a string (index). If a 
+ * word is not present the position is -1.
+ */
+
+let randoStr = "hare rabbit porcupine";
+console.log(randoStr.search("rabbit"));
+// => prints 5
+
+console.log(randoStr.search("lion"));
+// => prints -1
+ 

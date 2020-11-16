@@ -224,6 +224,7 @@
    valet: true }
    */
    
+   
    //Deleting Object Properties: Usind Delete
    delete chezLoule.dishes; // code specifies to delete key dishes from object chezLoule
    console.log(chezLoule);
@@ -235,6 +236,16 @@
    open: true,
    valet: true }
    */
+   
+    // Checking for Keys Using .HasOwnProperty method //
+   console.log(chezLoule.hasOwnProperty('occupancy'));
+   //prints => true
+   
+   console.log(chezLoule.hasOwnProperty('dishes'));
+   //prints => false
+   
+   
+   
    
    /**
    * 13. Arrays and Objects have values that are to large to store 
