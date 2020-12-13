@@ -4,6 +4,7 @@ function repeat(n, action) {
   }
 }
 
+//letter we pass in mus be its unicode #
 function characterScript(code) {
   for (let script of SCRIPTS) {
     if (script.ranges.some(([from, to]) => {
@@ -15,6 +16,7 @@ function characterScript(code) {
   return null;
 }
 
+//items is iterable and groupName will be a function
 function countBy(items, groupName) {
   let counts = [];
   for (let item of items) {
@@ -29,7 +31,7 @@ function countBy(items, groupName) {
       counts[known].count++;
     }
   }
-  return counts;
+  return counts; //return an array of objects []
 }
 
 function textScripts(text) {
