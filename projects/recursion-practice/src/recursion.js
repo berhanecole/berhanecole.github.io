@@ -34,6 +34,16 @@ var sum = function(array) {
 // 3. Sum all numbers in an array containing nested arrays.
 // Example: arraySum([1,[2,3],[[4]],5]); // 15
 var arraySum = function(array) {
+   let nest = [];
+  if(array.length === 0){
+    return 0
+  } else if(Array.isArray(array[0])){
+    let nest = array[0]
+    return arraySum(nest) + arraySum(array.slice(1))
+  }
+  
+  
+  return array[0] + arraySum(array.slice(1)) 
 };
 
 // 4. Check if a number is even.
@@ -202,7 +212,25 @@ var palindrome = function(string) {
 // modulo(5,2) // 1
 // modulo(17,5) // 2
 // modulo(22,6) // 4
+
 var modulo = function(x, y) {
+if(x === 0 && y === 0){
+    return NaN;
+  } else if(y === 1 || x === 0 || x === y){
+    return 0;
+  } else if(x < 0 && y > 0 && -x > y){
+    return modulo(-x, y); 
+  } else if(x < 0 && y > 0 && -x < y){
+    return x;
+  } else if(x < 0 && y < 0 && y < x){
+    return x;
+  } else if(x < 0 && y < 0 && x < y){
+    return -modulo(-x, -y) ;
+  } else if(y > x && x > 0){
+    return x;
+  } 
+  
+  return modulo(x -= y, y);
 };
 
 // 12. Write a function that multiplies two numbers without using the * operator  or
@@ -221,23 +249,39 @@ if(y === 0){
    return 0;
    
  }  else if(x < 0 && y < 0){
-  return -x + multiply(x, y + 1)
+  return -x + multiply(x, y + 1);
    
  } else if(x < 0){
   return  multiply(x, y - 1) + x;
 
 } else if(x === 0){
-  return 0
+  return 0;
 }
 
-return  x + multiply(x, y - 1)
+return  x + multiply(x, y - 1);
 
 };
 
 //AUDIT
 // 13. Write a function that divides two numbers without using the / operator  or
-// JavaScript's Math object.
-var divide = function(x, y) {
+// JavaScript's Math object.   // remainder += (x - y);
+var divide = function(x, y, remainder = 0) {
+  if(x === 0 && y === 0){
+    return NaN;
+  
+  }else if (x < y){
+  
+    return remainder;
+  } else if(x < 0 && y < 0){
+    return divide(-x, -y, remainder)
+  } else if (x >= y){
+    x -= y
+    remainder ++;
+  
+  
+  return divide(x, y, remainder);}
+
+
 };
 
 //AUDIT
@@ -246,8 +290,59 @@ var divide = function(x, y) {
 // Example:  gcd(4,36);  // 4
 // http://www.cse.wustl.edu/~kjg/cse131/Notes/Recursion/recursion.html
 // https://www.khanacademy.org/computing/computer-science/cryptography/modarithmetic/a/the-euclidean-algorithm
-var gcd = function(x, y) {
+var gcd = function(x, y, commonD = 0, count = 0) {
+  
+  // if x and y are 0 the gcd is 0
+  if(x === 0 && y === 0){
+    return 0;
+    
+  // if count reaches x / base case / and is a denominator of x  
+  // x is the gcd
+  } else if (count === x && y % x === 0){
+    return x;
+    
+  //if count reaches x / base case / and is not a denominatore return
+  // the commonD or greatest common denominator
+  } else if (count === x && y % x !== 0){
+    return commonD;
+  
+  //if the x is zero return y as it is the greatest common denominator
+  }  else if (x === 0){
+    return y;
+    
+  //if y is zero return x as it is the greatest common denominator
+  } else if (y === 0){
+    return x;
+  
+  //if either argument is negative return null
+  } else if (x < 0 || y < 0){
+    return null;
+    
+  //if x is greater that y shift variables around so x is alwaws less than y so we 
+  //we reach the base case
+  } else if(x > y){
+    let z = y;
+    y = x;
+    x = z;
+  
+  //if count is a modulo of x and y it becomes the gcd as we increment
+  } else if(x % count === 0 && y % count === 0){
+    commonD = count;
+  }
+  count++;
+  
+  //recursive case;
+  return gcd(x, y, commonD, count);
+  
 };
+  
+
+
+
+
+
+
+
 
 // 15. Write a function that compares each character of two strings and returns true if
 // both are identical.
@@ -387,20 +482,112 @@ var rMap = function(array, callback) {
 // var testobj = {'e': {'x':'y'}, 't':{'r': {'e':'r'}, 'p': {'y':'r'}},'y':'e'};
 // countKeysInObj(testobj, 'r') // 1
 // countKeysInObj(testobj, 'e') // 2
+
+
+// var countKeysInObj = function(obj, key, count = 0, keys) {
+//   if(!keys){
+//   keys = Object.keys(obj);
+//   } else if(keys.length === 1 && key === keys[0]){
+//     count ++;
+//     return count;
+//   } else if (keys.length === 1 && key === keys[0]){
+//     return count;
+//   } else if (key === keys[0]){
+//     count++;
+//   }
+//   return(obj, key, count, keys.slice(1));
+// };
+
+
 var countKeysInObj = function(obj, key) {
-};
+let count = 0
+for (var prop in obj) {
+if (prop === key) {
+count++;
+} if (obj[prop] instanceof Object) {
+ count += countKeysInObj(obj[prop], key, count);
+}
+}
+return count;
+}
+
+
+
+
+
+
+
+
+// var countKeysInObj = function(obj, key) {
+// var count = 0;
+// for (var prop in obj) {
+// if (prop === key) {
+// count++;
+
 
 // 22. Write a function that counts the number of times a value occurs in an object.
 // var testobj = {'e': {'x':'y'}, 't':{'r': {'e':'r'}, 'p': {'y':'r'}},'y':'e'};
 // countValuesInObj(testobj, 'r') // 2
 // countValuesInObj(testobj, 'e') // 1
 var countValuesInObj = function(obj, value) {
-};
+  let count = 0;
+  for(let prop in obj){
+    if(obj[prop] === value){
+      count++
+    } else if(obj[prop] instanceof Object ){
+      count += countValuesInObj(obj[prop], value)
+    } 
+    // else if(prop instanceof Object){
+    //   count += countValuesInObj(prop, value)
+    // }
+  }
+  return count
+  };
+
+
+
+
 
 // 23. Find all keys in an object (and nested objects) by a provided name and rename
 // them to a provided new name while preserving the value stored at that key.
-var replaceKeysInObj = function(obj, key, newKey) {
-};
+// var replaceKeysInObj = function(obj, key, newKey) {
+// for(let prop in obj){
+//   if(obj[prop] instanceof Object){
+//     replaceKeysInObj(obj[prop], key, newKey)
+//   }
+//   else if (prop === key){
+//     prop = newKey
+//   } 
+//   else if (prop !== key){
+//     prop = undefined;
+//   }
+// }
+
+// return obj
+
+// var replaceKeysInObj = function(obj, oldKey, newKey, newObj = {}){
+// if (typeof obj !== "object") return obj; 
+// for (let key in obj) {
+//     newObj[key === oldKey ? newKey : key] = replaceKeysInObj(obj[key], oldKey, newKey);
+// }
+//   return newObj;
+// };
+
+var replaceKeysInObj = function(obj, oldKey, newKey) {
+  let newObj = {};
+for(let prop in obj){
+  if (prop === oldKey && typeof obj[prop] !== "object"){
+    newObj[newKey] = obj[prop]
+  } else if(prop === oldKey && typeof obj[prop] === "object"){
+    newObj[newKey] = replaceKeysInObj(obj[prop], oldKey, newKey)
+  } else if(prop !== oldKey && typeof obj[prop] !== "object"){
+    newObj[prop] = obj[prop]
+  } else if(prop !== oldKey && typeof obj[prop] === "object"){
+    newObj[prop] = replaceKeysInObj(obj[prop], oldKey, newKey)
+}
+} return newObj
+}
+
 
 
 
@@ -436,27 +623,29 @@ var replaceKeysInObj = function(obj, key, newKey) {
  * n = how many indices we want of the fib sequence
  * 
  */
-var fibonacci = function(n) {
-  let fibArray = [0, 1];
+var fibonacci = function(i, fibArray = [0, 1]) {
+  let nextElement = 0
   
   //our base case if if n === 0 we want to return our fibArray
   
-  if (n === 2){
-  return fibArray}
+  if (i === 1){
+  return fibArray
+  
+  } 
   
   //edge case for negative inputs
   
-  else if(n < 0){
+  else if(i <= 0){
     return null;
   }
   
-  else if(n > 2){
-    return fibonacci(n - 1).concat([fibArray.length - 1 + fibArray.length - 2])
+  else if(i >= 2){
+    nextElement = fibArray[fibArray.length - 1] + fibArray[fibArray.length - 2]
+    fibArray.push(nextElement)
+    return fibonacci(i - 1, fibArray)
   }
-  
-
-  
-};
+  return fibArray
+}
 
 // 25. Return the Fibonacci number located at index n of the Fibonacci sequence.
 // [0,1,1,2,3,5,8,13,21]
@@ -542,13 +731,43 @@ var capitalizeFirst = function(array) {
 //   e: {e: {e: 2}, ee: 'car'}
 // };
 // nestedEvenSum(obj1); // 10
-var nestedEvenSum = function(obj) {
+
+  var nestedEvenSum = function(obj) {
+  let sum = 0
+// base case //
+if(typeof obj !== "object"){
+  return sum
+}
+
+for(let key in obj){
+  if(typeof obj[key] === 'object'){
+    sum += nestedEvenSum(obj[key])
+  } else if(obj[key] % 2 === 0){
+   sum += obj[key]
+  } 
+}
+
+
+return sum
 };
 
 // 29. Flatten an array containing nested arrays.
 // Example: flatten([1,[2],[3,[[4]]],5]); // [1,2,3,4,5]
-var flatten = function(arrays) {
+var flatten = function(arrays, flatArray = []) {
+
+  //base case //
+  if (arrays.length === 0){
+    return flatArray
+  } else if (Array.isArray(arrays[0]) === true){
+   flatten(arrays[0], flatArray)
+  } else {
+    flatArray.push(arrays[0])
+  }
+  flatten((arrays.slice(1)), flatArray)
+  return flatArray
 };
+
+
 
 
 
@@ -675,9 +894,19 @@ var compress = function(list, noDupes = []) {
 // // itself.
 // // Example: augmentElements([[],[3],[7]], 5); // [[5],[3,5],[7,5]]
 var augmentElements = function(array, aug) {
+  // base case //
+if(array.length === 0){
+  return []
+  
+  } else if (Array.isArray(array[0]) === true){
+  array[0].push(aug)
+  } else if (Array.isArray(array[0]) === false){
+  array.push(array[0])  
+  } 
+
+augmentElements(array.slice(1), aug)
+return array
 };
-
-
 
 
 // 33. Reduce a series of zeroes to a single 0.
